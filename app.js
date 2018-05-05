@@ -43,7 +43,25 @@ app.get("/blogs", function(req,res){
     });
 });
 
+//NEW Route
+app.get("/blogs/new",function(req,res){
+    res.render("new");
+});
+
+//CREATE Route
+app.post("/blogs",function(req,res){
+    //create blog
+    Blog.create(req.body.blog, function(err, newBlog){
+        if(err) {
+            res.render("new");
+        } else {
+            //then redirect to the index
+            res.redirect("/blogs");
+        }
+    }); 
+});
+
 //listening port
 app.listen("3001", function () {
-    console.log("Server started")
+    console.log("Server started");
 });
