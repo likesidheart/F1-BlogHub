@@ -23,12 +23,6 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
-// Blog.create({
-//     title: "Test",
-//     image: "https://cdn-2.motorsport.com/images/amp/2j7XBmkY/s6/f1-abu-dhabi-gp-2017-valtteri-bottas-mercedes-amg-f1-w08-lewis-hamilton-mercedes-amg-f1-w0-7295925.jpg",
-//     body:"hello f1 bloggers"
-// });
-
 //RESTful Routes
 //ROOT
 app.get("/", function(req,res){
@@ -103,6 +97,19 @@ app.put("/blogs/:id", function(req, res){
          }
      });
  });
+
+ //DELETE route
+ app.delete("/blogs/:id", function(req, res){
+     //delete blog
+    Blog.findByIdAndRemove(req.params.id, function(err){
+        if(err) {
+            console.log(err);
+            res.redirect("/blogs");
+        } else {
+            res.redirect("/blogs");
+        }
+    });
+});
 
 //listening port
 app.listen("3001", function () {
